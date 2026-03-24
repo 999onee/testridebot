@@ -55,6 +55,7 @@ async def on_message(message):
         return
 
     normalized_msg = normalize(message.content)
+    await message.channel.send(f"DEBUG: `{normalized_msg}`")
 
     for i, trigger in enumerate(TRIGGERS):
         if isinstance(trigger, tuple):
