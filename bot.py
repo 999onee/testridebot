@@ -56,10 +56,18 @@ async def on_message(message):
 
     normalized_msg = normalize(message.content)
 
-    for i, trigger in enumerate(NORMALIZED_TRIGGERS):
-        if trigger in normalized_msg:
-            original_trigger = TRIGGERS[i]
-            display = original_trigger[0].upper() + original_trigger[1:]
+    for i, trigger in enumerate(TRIGGERS):
+        if isinstance(trigger, tuple):
+            matched = all(part in normalized_msg for part in trigger)
+        else:
+            matched = trigger in normalized_msg
+
+        if matched:
+            original = TRIGGERS[i]
+            if isinstance(original, tuple):
+                display = "Small world is now under maintenance"
+            else:
+                display = original[0].upper() + original[1:]
             await message.channel.send(f"<@{YOUR_USER_ID}> {display}")
             break
 
