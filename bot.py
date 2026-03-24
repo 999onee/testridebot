@@ -25,7 +25,7 @@ TRIGGERS = [
     "undersea adventure is now under maintenance",
     "mountain railroad is now under maintenance",
     "toy story midway mania! is now under maintenance",
-    "small world is now under maintenance",
+    ("small world", "is now under maintenance"),
     "matterhorn bobsleds is now under maintenance",
     "mission: breakout! is now under maintenance",
     "runaway railway is now under maintenance",
