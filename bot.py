@@ -63,10 +63,22 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    normalized_msg = normalize(message.content)
-    await message.channel.send(f"DEBUG: `{normalized_msg}`")
+    # Build full text from content + embed title/description
+    parts = [message.content or ""]
+    for embed in message.embeds:
+        if embed.title:
+            parts.append(embed.title)
+        if embed.description:
+            parts.append(embed.description)
+    
+    full_text = " ".join(parts)
+    
+    # Temporary debug — remove after confirming
+    await message.channel.send(f"DEBUG from {message.author}: `{full_text[:100]}`")
 
-    for i, trigger in enumerate(TRIGGERS):
+    normalized_msg = normalize(full_text)
+
+    for i, trigger in enumerate(NORMALIZED_TRIGGERS):
         if isinstance(trigger, tuple):
             matched = all(part in normalized_msg for part in trigger)
         else:
