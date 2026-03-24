@@ -7,7 +7,8 @@ load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
-client = discord.Client(intents=intents)
+intents.messages = True
+intents.guild_messages = True
 
 YOUR_USER_ID = 195760464326688769
 
@@ -50,6 +51,12 @@ NORMALIZED_TRIGGERS = [normalize(t) for t in TRIGGERS]
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
+
+@client.event
+async def on_message(message):
+    await message.channel.send(f"DEBUG: saw message from {message.author} (bot={message.author.bot}): `{message.content[:50]}`")
+    if message.author == client.user:
+        return
 
 @client.event
 async def on_message(message):
