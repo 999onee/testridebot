@@ -38,8 +38,9 @@ TRIGGERS = [
 
 def normalize(text):
     text = text.lower()
-    text = re.sub(r"[''`]", "", text)
-    text = re.sub(r"[™®]", "", text)
+    text = re.sub(r"[''`]", "", text)       # apostrophes
+    text = re.sub(r"[™®]", "", text)        # trademark symbols
+    text = re.sub(r'[""\""]', "", text)     # all quote marks (curly + straight)
     return text
 
 NORMALIZED_TRIGGERS = [normalize(t) for t in TRIGGERS]
