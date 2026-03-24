@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.message_content = True
 intents.messages = True
 intents.guild_messages = True
